@@ -43,12 +43,17 @@ const useAuthStore = create((set) => ({
     window.location.href = '/login';
   },
 
-  updateUser: (user) => {
-    localStorage.setItem('user', JSON.stringify(user));
-    set({ user });
+  getMe: async () => {
+    try {
+      const { data } = await api.get('/auth/me');
+      localStorage.setItem('user', JSON.stringify(data.user));
+      set({ user: data.user });
+      return data.user;
+    } catch (e) {
+      set({ error: 'Failed to fetch user data' });
+      return null;
+    }
   },
-
-  clearError: () => set({ error: null }),
 }));
 
 export default useAuthStore;

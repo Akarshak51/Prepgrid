@@ -14,10 +14,15 @@ export function Login() {
     if (token && refresh) {
       localStorage.setItem('token', token);
       localStorage.setItem('refresh', refresh);
-      const userData = { _id: 'google', name: 'Google User', email: '' };
-      localStorage.setItem('user', JSON.stringify(userData));
-      useAuthStore.setState({ user: userData, token });
-      navigate('/dashboard', { replace: true });
+      useAuthStore.setState({ token });
+      // Fetch user data
+      useAuthStore.getState().getMe().then((user) => {
+        if (user) {
+          navigate('/dashboard', { replace: true });
+        } else {
+          navigate('/login?error=Failed+to+fetch+user+data', { replace: true });
+        }
+      });
     }
     const errorMsg = searchParams.get('error');
     if (errorMsg) {
