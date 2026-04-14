@@ -1,12 +1,13 @@
 services:
   - type: web
     name: prepgrid-backend
-    env: node
+    runtime: docker
     region: singapore
     plan: free
     rootDir: backend
-    buildCommand: npm install
-    startCommand: node src/server.js
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/health
     envVars:
       - key: NODE_ENV
         value: production
@@ -30,6 +31,10 @@ services:
         sync: false
       - key: GROQ_API_KEY
         sync: false
+      - key: GROQ_MODEL
+        value: llama3-8b-8192
+      - key: PISTON_URL
+        value: https://emkc.org/api/v2/piston
       - key: MAIL_HOST
         sync: false
       - key: MAIL_PORT

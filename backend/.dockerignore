@@ -1,0 +1,12 @@
+node_modules
+npm-debug.log*
+*.log
+.yarn
+.pnpm-store
+.env
+.env.*
+!.env.example
+coverage
+.git
+.gitignore
+README.md
