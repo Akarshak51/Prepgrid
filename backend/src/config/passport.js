@@ -1,17 +1,20 @@
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const passport = require('passport');
 const User = require('../models/User');
-const { getApiUrl } = require('./urls');
+const { isGoogleAuthEnabled } = require('./env');
+const { getGoogleRedirectUrl } = require('./urls');
 
-if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
+if (isGoogleAuthEnabled()) {
   passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: `${getApiUrl()}/api/auth/google/callback`,
+    callbackURL: getGoogleRedirectUrl(),
   }, async (accessToken, refreshToken, profile, done) => {
     try {
       const email = profile.emails?.[0]?.value;
-      if (!email) return done(new Error('Google account email is unavailable'), null);
+      if (!email) {
+        return done(new Error('Google account email is unavailable'), null);
+      }
 
       let user = await User.findOne({ googleId: profile.id });
 

@@ -6,7 +6,7 @@ services:
     plan: free
     rootDir: backend
     buildCommand: npm install
-    startCommand: npm start
+    startCommand: node src/server.js
     envVars:
       - key: NODE_ENV
         value: production
@@ -14,12 +14,20 @@ services:
         value: https://prepgrid-backend-gpxp.onrender.com
       - key: CLIENT_URL
         value: https://prepgrid-kcpe.vercel.app
+      - key: GOOGLE_REDIRECT_URI
+        value: https://prepgrid-backend-gpxp.onrender.com/api/auth/google/callback
       - key: MONGO_URI
         sync: false
       - key: JWT_SECRET
         generateValue: true
       - key: JWT_REFRESH_SECRET
         generateValue: true
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
       - key: GROQ_API_KEY
         sync: false
       - key: MAIL_HOST
