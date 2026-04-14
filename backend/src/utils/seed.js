@@ -162,11 +162,12 @@ async function seed() {
   console.log('Connected to MongoDB');
 
   // Create admin
-  const existing = await User.findOne({ email: process.env.ADMIN_EMAIL });
+  const adminEmail = process.env.ADMIN_EMAIL || 'admin@prepgrid.dev';
+  const existing = await User.findOne({ email: adminEmail });
   if (!existing) {
     await User.create({
       name: 'Admin',
-      email: process.env.ADMIN_EMAIL || 'admin@prepgrid.dev',
+      email: adminEmail,
       password: process.env.ADMIN_PASSWORD || 'Admin@123456',
       role: 'admin',
       tier: 'pro',
