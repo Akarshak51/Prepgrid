@@ -10,6 +10,10 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
+      - key: API_URL
+        value: https://prepgrid-backend-gpxp.onrender.com
+      - key: CLIENT_URL
+        value: https://prepgrid-kcpe.vercel.app
       - key: MONGO_URI
         sync: false
       - key: JWT_SECRET
@@ -27,6 +31,4 @@ services:
       - key: MAIL_PASS
         sync: false
       - key: MAIL_FROM
-        sync: false
-      - key: CLIENT_URL
         sync: false
