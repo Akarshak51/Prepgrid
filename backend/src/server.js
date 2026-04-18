@@ -90,7 +90,18 @@ app.use('/api/quiz', require('./routes/quiz'));
 app.use('/api/user', require('./routes/user'));
 app.use('/api/admin', require('./routes/admin'));
 
-app.get('/api/health', (_, res) => res.json({ status: 'ok', time: new Date() }));
+app.get('/api/health', (_, res) => {
+  const groqKeySet = Boolean(process.env.GROQ_API_KEY);
+  const groqKeyPreview = groqKeySet 
+    ? `${process.env.GROQ_API_KEY.slice(0, 8)}...${process.env.GROQ_API_KEY.slice(-4)}` 
+    : 'NOT SET';
+  res.json({ 
+    status: 'ok', 
+    time: new Date(),
+    groqConfigured: groqKeySet,
+    groqKey: groqKeyPreview
+  });
+});
 
 app.use((_, res) => res.status(404).json({ message: 'Route not found' }));
 app.use((err, _, res, __) => {

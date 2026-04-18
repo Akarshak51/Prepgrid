@@ -3,7 +3,17 @@ const axios = require('axios');
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
 const MODEL = process.env.GROQ_MODEL || 'llama3-8b-8192';
 
+const apiKey = process.env.GROQ_API_KEY;
+if (!apiKey) {
+  console.error('GROQ_API_KEY is not set!');
+} else {
+  console.log('GROQ_API_KEY loaded:', apiKey.slice(0, 8) + '...' + apiKey.slice(-4));
+}
+
 async function chat(messages, systemPrompt, maxTokens = 1024) {
+  if (!apiKey) {
+    throw new Error('GROQ_API_KEY environment variable is not set. Please configure it in Render dashboard.');
+  }
   try {
     const res = await axios.post(
       GROQ_URL,
