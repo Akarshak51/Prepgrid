@@ -1,6 +1,6 @@
 # ⚡ PrepGrid — AI Interview & Practice Platform
 
-> **DevFusion Hackathon · Problem Statement 1 (#26ENPRE1)**  
+>
 > A complete placement preparation platform with AI-powered mock interviews, real code execution, timed quizzes, and leaderboards — **100% free, zero cost, no credit card required.**
 
 ---
@@ -748,4 +748,4 @@ MIT License — free to use, modify, and deploy.
 
 ---
 
-**Built for DevFusion Hackathon 2026 · ⚡ PrepGrid**
+**Built  ⚡ PrepGrid**
